@@ -29,11 +29,21 @@ class Movie extends Component{
 */
 
 // 위의 클래스 컴포넌트를 functional 컴포넌트로 바꿔보자~!
-function Movie({title, poster}){
+function Movie({title, poster, genres, synopsis}){
     return (
-        <div>
-            <MoviePoster poster={poster}/>            
-            <h1>{title}</h1>
+        <div className="Movie">
+            <div className="Movie__Colums">
+                <MoviePoster poster={poster} alt={title} /> 
+            </div>
+            <div className="Movie_Colums">
+                <h1>{title}</h1> 
+                <div className="Mvie__Genres">
+                    {genres.map((genre,index) => <MovieGenre genre={genre} key={index} />)}
+                </div>
+                <p className="Movie__Synopsis">
+                    {synopsis}
+                </p>
+            </div>
         </div>
     )
 }
@@ -53,21 +63,34 @@ class MoviePoster extends Component{
 }
 */
 
-function MoviePoster({poster}){
+function MoviePoster({poster,alt}){
     return (
-        <img src={poster} alt="Movie Pster" />  
+        <img src={poster} alt={alt} title={alt} className="Movie__Poster" />  
     )
 }
 // 이 function컴포넌트는 클래스 컴포넌트가 아니기때문에, props는 지우고, poster만 남김.
 // 어떤 컴포넌트는 그냥 return을 하기 위해 존재함. 그냥 1개의 props, 1개의 html태그만 있으면됨.
 
+function MovieGenre({genre}){
+    return (
+        <span className="Mvie__Genre">{genre}</span>  
+    )
+}
+
 Movie.protoType = {
     title: PropTypes.string.isRequired,
-    poster: PropTypes.string.isRequired
+    poster: PropTypes.string.isRequired,
+    genres: PropTypes.array.isRequired,
+    synopsis: PropTypes.string.isRequired
 }
 
 MoviePoster.protoType = {
-    poster: PropTypes.string.isRequired
+    poster: PropTypes.string.isRequired,
+    alt: PropTypes.string.isRequired
+}
+
+MovieGenre.protoType = {
+    genre: PropTypes.string.isRequired
 }
 
 export default Movie
