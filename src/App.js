@@ -43,11 +43,17 @@ class App extends Component {
   } */
 
   state = {}
-  
+
   componentDidMount(){
     // 컴포넌트가 mount되면-> 5초를 기다리고 greeting을 업데이트 할것임.
     // 업데이트 할때마다 render() 이 새로운 state와 함꼐 다시 작동함.
     fetch('https://yts.am/api/v2/list_movies.json?sort_by=rating')
+    .then(response => response.json()) 
+    //then function은 1개의 attribute만 줌. fetch의 결과물인, 오브젝트임.
+    //이것은 fetch에 어떤 결과가 나타났느냐에 관한것을 보는 것임. 
+    //여기서 받은 response오브젝트를 우리가 확인 할 수 있는 제이슨으로 바꿔야함.
+    .then(json => console.log(json))
+    .catch(err => console.log(err))
   }
 
   _renderMovies = () => {
