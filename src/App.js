@@ -42,35 +42,12 @@ class App extends Component {
     //이 작업수행이 완료되면 데이터 관련된 작업을 할것임.
   } */
 
-  state = {
-  }
+  state = {}
   
   componentDidMount(){
     // 컴포넌트가 mount되면-> 5초를 기다리고 greeting을 업데이트 할것임.
     // 업데이트 할때마다 render() 이 새로운 state와 함꼐 다시 작동함.
-    setTimeout(()=> {
-      // this.state.greeting = 'something' : 이런시긍로 state를 직접 업데이트하면안됨.
-      this.setState({
-        movies: [
-          {
-            title: "Matrix",
-            poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPutwkAVwLv99nNVwMXaLkPGzY3iYDmNb8G_Dun-WrxOuDUKni"
-          },
-          {
-            title: "fullmetaljacket",
-            poster: "https://m.media-amazon.com/images/M/MV5BNzVlY2MwMjktM2E4OS00Y2Y3LWE3ZjctYzhkZGM3YzA1ZWM2XkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_.jpg"
-          },
-          {
-            title: "oldboy",
-            poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPutwkAVwLv99nNVwMXaLkPGzY3iYDmNb8G_Dun-WrxOuDUKni"
-          },
-          {
-            title: "star wars",
-            poster: "https://m.media-amazon.com/images/M/MV5BNzVlY2MwMjktM2E4OS00Y2Y3LWE3ZjctYzhkZGM3YzA1ZWM2XkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_.jpg"
-          }
-        ]
-      })
-    }, 3000)
+    fetch('https://yts.am/api/v2/list_movies.json?sort_by=rating')
   }
 
   _renderMovies = () => {
