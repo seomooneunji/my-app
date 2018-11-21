@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import './Movie.css';
 import PropTypes from 'prop-types'
+import LinesEllipsis from 'react-lines-ellipsis'
 
 /*
 class Movie extends Component{
@@ -40,28 +41,19 @@ function Movie({title, poster, genres, synopsis}){
                 <div className="Mvie__Genres">
                     {genres.map((genre,index) => <MovieGenre genre={genre} key={index} />)}
                 </div>
-                <p className="Movie__Synopsis">
-                    {synopsis}
-                </p>
+                <div className="Movie__Synopsis">
+                <LinesEllipsis
+                    text={synopsis}
+                    maxLine='3'
+                    ellipsis = '...'
+                    trimRight
+                    basedOn='letters'
+                    />
+                </div>
             </div>
         </div>
     )
 }
-
-/*
-class MoviePoster extends Component{
-    static propTypes = {
-        poster: PropTypes.string.isRequired,
-      }
-
-    render(){
-        //console.log(this.props)
-        return(
-            <img src={this.props.poster} alt="Movie Pster" />
-        )
-    }
-}
-*/
 
 function MoviePoster({poster,alt}){
     return (
@@ -73,7 +65,7 @@ function MoviePoster({poster,alt}){
 
 function MovieGenre({genre}){
     return (
-        <span className="Mvie__Genre">{genre}</span>  
+        <span className="Movie__Genre">{genre}</span>  
     )
 }
 
