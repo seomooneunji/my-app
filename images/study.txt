@@ -17,3 +17,15 @@ fetch와 promise가 좋은 이유는 시나리오가 생기고 이를 관리 할
 
 fetch가 좋은 이유는 url을 에이작스로 불러올 수 있음.  
 (이전에는 xml http request라고 아주 어려웠음.)
+
+//
+application이 커지다보면 then, then,,,,이 많아져서 길을 잃어버리게됨.
+그래서 sync, await를 사용함.
+
+.then(json => {
+      this.setState({
+        movies: json.data.movies
+      })
+    })
+
+이렇게 사용하지 않고, 새로운 function을만듬. get movies

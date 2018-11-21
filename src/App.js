@@ -45,20 +45,35 @@ class App extends Component {
   state = {}
 
   componentDidMount(){
-    // 컴포넌트가 mount되면-> 5초를 기다리고 greeting을 업데이트 할것임.
+    this._getMovies()
+  }
+
+  _getMovies = async () => {
+    const movies = await this._callAPI()
+    // movies는  callAPI라는 function을 await모드에서 value로 갖고있음. 
+    // await로 하는 것은 call api 작업이 완료되는것을 기다림 (성공정인 수행이 아니라)
+    this.setState({
+      movies 
+    })
+
+    
+  }
+
+  _callAPI = () => {
+   // 컴포넌트가 mount되면-> 5초를 기다리고 greeting을 업데이트 할것임.
     // 업데이트 할때마다 render() 이 새로운 state와 함꼐 다시 작동함.
-    fetch('https://yts.am/api/v2/list_movies.json?sort_by=rating')
+    return fetch('https://yts.am/api/v2/list_movies.json?sort_by=rating')
     .then(response => response.json()) 
     //then function은 1개의 attribute만 줌. fetch의 결과물인, 오브젝트임.
     //이것은 fetch에 어떤 결과가 나타났느냐에 관한것을 보는 것임. 
     //여기서 받은 response오브젝트를 우리가 확인 할 수 있는 제이슨으로 바꿔야함.
-    .then(json => console.log(json))
+    .then(json => json.data.movies)
     .catch(err => console.log(err))
   }
 
   _renderMovies = () => {
-    const movies = this.state.movies.map((movie, index) => {
-      return <Movie title={movie.title} poster={movie.poster} key={index} />
+    const movies = this.state.movies.map((movie) => {
+      return <Movie title={movie.title} poster={movie.large_cover_image} key={movie.id} />
     })
     return movies
   }
