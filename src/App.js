@@ -36,7 +36,6 @@ const movies = [
 // render(컴포넌트가 존재하기 시작하면, 이 순서로 작동) -  componentWillMount() -> render() -> componentDidMount() 
 // update - componentWillReceivePros(): 컴포넌트가 새로운 props를 받았다는 뜻 -> shouldCompoenetUpdate()=== true리액트는 ol props와 new props를 살펴본후 이전과 새로운 props가 다르면, 리액트는 '업데이트=true'라고 생각함.-> componentWillUpdate():-> render() ->componentdidUpdate()
 class App extends Component {
-
   /*
   componentWillMount(){
     //api에 작업 요청, 
@@ -44,25 +43,6 @@ class App extends Component {
   } */
 
   state = {
-    greeting: 'Hello!',
-    movies: [
-      {
-        title: "Matrix",
-        poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPutwkAVwLv99nNVwMXaLkPGzY3iYDmNb8G_Dun-WrxOuDUKni"
-      },
-      {
-        title: "fullmetaljacket",
-        poster: "https://m.media-amazon.com/images/M/MV5BNzVlY2MwMjktM2E4OS00Y2Y3LWE3ZjctYzhkZGM3YzA1ZWM2XkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_.jpg"
-      },
-      {
-        title: "oldboy",
-        poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPutwkAVwLv99nNVwMXaLkPGzY3iYDmNb8G_Dun-WrxOuDUKni"
-      },
-      {
-        title: "star wars",
-        poster: "https://m.media-amazon.com/images/M/MV5BNzVlY2MwMjktM2E4OS00Y2Y3LWE3ZjctYzhkZGM3YzA1ZWM2XkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_.jpg"
-      }
-    ]
   }
   
   componentDidMount(){
@@ -72,29 +52,43 @@ class App extends Component {
       // this.state.greeting = 'something' : 이런시긍로 state를 직접 업데이트하면안됨.
       this.setState({
         movies: [
-          ...this.state.movies,
           {
-            title: "transport",
+            title: "Matrix",
             poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPutwkAVwLv99nNVwMXaLkPGzY3iYDmNb8G_Dun-WrxOuDUKni"
+          },
+          {
+            title: "fullmetaljacket",
+            poster: "https://m.media-amazon.com/images/M/MV5BNzVlY2MwMjktM2E4OS00Y2Y3LWE3ZjctYzhkZGM3YzA1ZWM2XkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_.jpg"
+          },
+          {
+            title: "oldboy",
+            poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPutwkAVwLv99nNVwMXaLkPGzY3iYDmNb8G_Dun-WrxOuDUKni"
+          },
+          {
+            title: "star wars",
+            poster: "https://m.media-amazon.com/images/M/MV5BNzVlY2MwMjktM2E4OS00Y2Y3LWE3ZjctYzhkZGM3YzA1ZWM2XkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_.jpg"
           }
         ]
       })
-    }, 1000)
+    }, 3000)
+  }
+
+  _renderMovies = () => {
+    const movies = this.state.movies.map((movie, index) => {
+      return <Movie title={movie.title} poster={movie.poster} key={index} />
+    })
+    return movies
   }
 
   render() {
     return (
       <div className="App">
-        hello!
-        {this.state.greeting}
-        {this.state.movies.map((movie, index) => {
-          return <Movie title={movie.title} poster={movie.poster} key={index} />
-        })
-        }
+        {this.state.movies ? this._renderMovies() : 'Loading'}
 
       </div>
     );
   }
+
 }
 
 /*
